@@ -2,20 +2,26 @@ import React from 'react'
 import { useState } from 'react'
 
 export function App() {
-  const [hue, setHue] = useState('180')
-  const [sat, setSat] = useState('50')
-  const [light, setLight] = useState('50')
+  const [hue, setHue] = useState(randomNumber(0, 360))
+  const [sat, setSat] = useState(randomNumber(0, 50))
+  const [light, setLight] = useState(randomNumber(0, 50))
+
+  function randomNumber(min: number, max: number) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
 
   function handleHueRange(event: React.FormEvent<HTMLInputElement>) {
-    setHue(event.currentTarget.value)
+    setHue(parseInt(event.currentTarget.value))
   }
 
   function handleSatRange(event: React.FormEvent<HTMLInputElement>) {
-    setSat(event.currentTarget.value)
+    setSat(parseInt(event.currentTarget.value))
   }
 
   function handleLightRange(event: React.FormEvent<HTMLInputElement>) {
-    setLight(event.currentTarget.value)
+    setLight(parseInt(event.currentTarget.value))
   }
 
   const newBackgroundColor = `hsl(${hue}, ${sat}%,${light}%)`
