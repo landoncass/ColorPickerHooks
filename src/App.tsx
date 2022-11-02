@@ -3,8 +3,8 @@ import { useState } from 'react'
 
 export function App() {
   const [hue, setHue] = useState(randomNumber(0, 360))
-  const [sat, setSat] = useState(randomNumber(0, 50))
-  const [light, setLight] = useState(randomNumber(0, 50))
+  const [sat, setSat] = useState(randomNumber(0, 100))
+  const [light, setLight] = useState(randomNumber(0, 100))
 
   function randomNumber(min: number, max: number) {
     min = Math.ceil(min)
@@ -28,44 +28,55 @@ export function App() {
   const newStyle = { backgroundColor: newBackgroundColor }
 
   return (
-    <div style={newStyle}>
-      <h1>
-        hsl({hue},{sat}%,{light}%)
-      </h1>
-      <p>
-        Hue
-        <input
-          id="hue"
-          type="range"
-          name="hue"
-          min="0"
-          max="360"
-          onInput={handleHueRange}
-          value={hue}
-        />
-      </p>
-      <p>
-        Saturation
-        <input
-          id="sat"
-          type="range"
-          min="0"
-          max="100"
-          onInput={handleSatRange}
-          value={sat}
-        />
-      </p>
-      <p>
-        Lightness
-        <input
-          id="light"
-          type="range"
-          min="0"
-          max="100"
-          onInput={handleLightRange}
-          value={light}
-        />
-      </p>
+    <div style={newStyle} className="mainDiv">
+      <div className="picker">
+        <h1>
+          hsl({hue},{sat}%,{light}%)
+        </h1>
+        <p>
+          Hue
+          <input
+            id="hue"
+            type="range"
+            name="hue"
+            min="0"
+            max="360"
+            onInput={handleHueRange}
+            value={hue}
+          />
+        </p>
+        <p>
+          Saturation
+          <input
+            id="sat"
+            type="range"
+            min="0"
+            max="100"
+            onInput={handleSatRange}
+            value={sat}
+          />
+        </p>
+        <p>
+          Lightness
+          <input
+            id="light"
+            type="range"
+            min="0"
+            max="100"
+            onInput={handleLightRange}
+            value={light}
+          />
+        </p>
+        <button
+          onClick={(event) => {
+            setHue(randomNumber(0, 360))
+            setSat(randomNumber(0, 100))
+            setLight(randomNumber(0, 100))
+          }}
+        >
+          Click me for a random color!
+        </button>
+      </div>
     </div>
   )
 }
