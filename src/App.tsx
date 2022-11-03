@@ -5,6 +5,7 @@ export function App() {
   const [hue, setHue] = useState(randomNumber(0, 360))
   const [sat, setSat] = useState(randomNumber(0, 100))
   const [light, setLight] = useState(randomNumber(0, 100))
+  const [alpha, setAlpha] = useState(randomNumber(0, 1.0))
 
   function randomNumber(min: number, max: number) {
     min = Math.ceil(min)
@@ -24,14 +25,18 @@ export function App() {
     setLight(parseInt(event.currentTarget.value))
   }
 
-  const newBackgroundColor = `hsl(${hue}, ${sat}%,${light}%)`
+  function handleAlphaRange(event: React.FormEvent<HTMLInputElement>) {
+    setAlpha(parseInt(event.currentTarget.value))
+  }
+
+  const newBackgroundColor = `hsl(${hue}, ${sat}%,${light}%, ${alpha})`
   const newStyle = { backgroundColor: newBackgroundColor }
 
   return (
     <div style={newStyle} className="mainDiv">
       <div className="picker">
         <h1>
-          hsl({hue},{sat}%,{light}%)
+          HSLA({hue},{sat}%,{light}%,{alpha}
         </h1>
         <p>
           Hue
@@ -67,11 +72,24 @@ export function App() {
             value={light}
           />
         </p>
+        <p>
+          Alpha
+          <input
+            id="alpha"
+            type="range"
+            min="0"
+            max="1"
+            step=".01"
+            onInput={handleAlphaRange}
+            value={alpha}
+          />
+        </p>
         <button
           onClick={(event) => {
             setHue(randomNumber(0, 360))
             setSat(randomNumber(0, 100))
             setLight(randomNumber(0, 100))
+            setAlpha(randomNumber(0, 1))
           }}
         >
           Click me for a random color!
